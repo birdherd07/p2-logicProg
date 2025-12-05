@@ -9,10 +9,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 male(john).
-female(mary).
 male(bob).
-female(alice).
 male(charlie).
+female(alice).
+female(mary).
 female(diana).
 
 parent(john, bob).
@@ -20,6 +20,9 @@ parent(mary, bob).
 parent(bob, alice).
 parent(bob, charlie).
 parent(alice, diana).
+
+deceased(mary).
+deceased(john).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Derived relationships
@@ -40,13 +43,17 @@ grandparent(GP,GC) :-
 ancestor(A,D) :- parent(A,D).
 ancestor(A,D) :- parent(A,X), ancestor(X,D).
 
+% NAF logic: Living ancestors
+
+living_ancestor(X, Y) :- ancestor(X, Y), not deceased(X).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Choice rule for multiple answer sets
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Each male may or may not live in the city – this creates different
 % possible worlds (answer sets).
 
-{ lives_in_city(X) : male(X) }.
+1 { lives_in_city(X) : male(X), not deceased(X) } 3.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simple optimization example
@@ -58,9 +65,10 @@ ancestor(A,D) :- parent(A,X), ancestor(X,D).
 % Output predicates
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#show father/2.
-#show mother/2.
+%#show father/2.
+%#show mother/2.
 #show sibling/2.
-#show grandparent/2.
-#show ancestor/2.
+%#show grandparent/2.
+%#show ancestor/2.
 #show lives_in_city/1.
+#show living_ancestor/2.

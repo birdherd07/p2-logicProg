@@ -12,18 +12,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 male(john).
-female(mary).
 male(bob).
-female(alice).
 male(charlie).
+female(alice).
+female(mary).
 female(diana).
 
-% parent(Parent, Child).
 parent(john, bob).
 parent(mary, bob).
 parent(bob, alice).
 parent(bob, charlie).
 parent(alice, diana).
+
+alive(bob).
+alive(charlie).
+alive(alice).
+alive(diana).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Derived relationships
@@ -57,6 +61,10 @@ ancestor(A, D) :-
 ancestor(A, D) :-
     parent(A, X),
     ancestor(X, D).
+
+% Non-NAF logic: Living ancestors
+
+living_ancestor(X, Y) :- ancestor(X, Y), alive(X)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample queries (for documentation)
