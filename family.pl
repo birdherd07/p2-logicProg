@@ -14,15 +14,20 @@
 male(john).
 male(bob).
 male(charlie).
+male(bruce).
 female(alice).
 female(mary).
 female(diana).
+female(hellen).
 
 parent(john, bob).
 parent(mary, bob).
 parent(bob, alice).
 parent(bob, charlie).
 parent(alice, diana).
+
+unknown(hellen).
+unknown(bruce).
 
 alive(bob).
 alive(charlie).
@@ -32,6 +37,11 @@ alive(diana).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Derived relationships
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Everyone is a person
+person(X) :- male(X).
+person(X) :- female(X).
+
+
 
 % father(Father, Child) :- Father is a male parent of Child.
 father(F, C) :-
@@ -75,3 +85,4 @@ living_ancestor(X, Y) :- ancestor(X, Y), alive(X)
 % ?- sibling(alice, charlie).
 % ?- grandparent(john, alice).
 % ?- ancestor(john, diana).
+% ?- living_ancestor(bob, alice).
