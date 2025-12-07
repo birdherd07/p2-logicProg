@@ -12,22 +12,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 male(john).
-female(mary).
 male(bob).
-female(alice).
 male(charlie).
+female(alice).
+female(mary).
 female(diana).
 
-% parent(Parent, Child).
 parent(john, bob).
 parent(mary, bob).
 parent(bob, alice).
 parent(bob, charlie).
 parent(alice, diana).
 
+alive(bob).
+alive(charlie).
+alive(alice).
+alive(diana).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Derived relationships
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Everyone is a person
+person(X) :- male(X).
+person(X) :- female(X).
+
+child(C, P) :- parent(P, C).
 
 % father(Father, Child) :- Father is a male parent of Child.
 father(F, C) :-
@@ -38,6 +47,8 @@ father(F, C) :-
 mother(M, C) :-
     female(M),
     parent(M, C).
+
+married(P1, P2) :- parent(P1, C), parent(P2, C), P1 \= P2.
 
 % sibling(X, Y) :- X and Y share at least one parent and are different people.
 sibling(X, Y) :-
@@ -58,12 +69,18 @@ ancestor(A, D) :-
     parent(A, X),
     ancestor(X, D).
 
+% Non-NAF logic: Living ancestors
+
+living_ancestor(X, Y) :-  alive(X), ancestor(X, Y).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample queries (for documentation)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % ?- father(john, bob).
 % ?- mother(mary, bob).
+% ?- married(john, mary).
 % ?- sibling(alice, charlie).
 % ?- grandparent(john, alice).
 % ?- ancestor(john, diana).
+% ?- living_ancestor(bob, alice).
