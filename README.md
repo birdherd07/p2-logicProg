@@ -53,7 +53,7 @@ You should see `true` for each of the above queries.
 ```bash
 clingo family.lp
 
-#Only show optimal models with newlines
+#Only show optimal model with newlines
 clingo --opt-mode=optN --quiet=1 --out-ifs=\n family.lp
 ```
 
@@ -101,3 +101,8 @@ Using the *same* family‑relationship rules in both languages highlights these 
 - **Prompt**: "How can I write a constraint rule that forbids a child from having more than two parents?"
 - **AI Response**: Use a cardinality constraint on the parent/2 predicate, or if you do not have a child\1 predicate, then quantify over all persons as potential children.
 - **Modification**: Altered choice rule structure to regular rule structure for simplicity.
+
+## Practical Usage
+- **Familial organization**: Both programs provide answers to queries about familial relationships between people.
+- **Family tree assignment**: family.lp can assign unknown individuals to vacant spaces in a family tree, providing multiple possible worlds of how a person could be related to the existing tree.
+  

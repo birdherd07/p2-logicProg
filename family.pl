@@ -14,20 +14,15 @@
 male(john).
 male(bob).
 male(charlie).
-male(bruce).
 female(alice).
 female(mary).
 female(diana).
-female(hellen).
 
 parent(john, bob).
 parent(mary, bob).
 parent(bob, alice).
 parent(bob, charlie).
 parent(alice, diana).
-
-unknown(hellen).
-unknown(bruce).
 
 alive(bob).
 alive(charlie).
@@ -41,7 +36,7 @@ alive(diana).
 person(X) :- male(X).
 person(X) :- female(X).
 
-
+child(C, P) :- parent(P, C).
 
 % father(Father, Child) :- Father is a male parent of Child.
 father(F, C) :-
@@ -52,6 +47,8 @@ father(F, C) :-
 mother(M, C) :-
     female(M),
     parent(M, C).
+
+married(P1, P2) :- parent(P1, C), parent(P2, C), P1 \= P2.
 
 % sibling(X, Y) :- X and Y share at least one parent and are different people.
 sibling(X, Y) :-
@@ -74,7 +71,7 @@ ancestor(A, D) :-
 
 % Non-NAF logic: Living ancestors
 
-living_ancestor(X, Y) :- ancestor(X, Y), alive(X)
+living_ancestor(X, Y) :-  alive(X), ancestor(X, Y).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample queries (for documentation)
@@ -82,6 +79,7 @@ living_ancestor(X, Y) :- ancestor(X, Y), alive(X)
 %
 % ?- father(john, bob).
 % ?- mother(mary, bob).
+% ?- married(john, mary).
 % ?- sibling(alice, charlie).
 % ?- grandparent(john, alice).
 % ?- ancestor(john, diana).
