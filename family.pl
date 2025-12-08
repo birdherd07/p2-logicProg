@@ -29,6 +29,8 @@ alive(charlie).
 alive(alice).
 alive(diana).
 
+youngest(diana).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Derived relationships
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,6 +76,33 @@ ancestor(A, D) :-
 living_ancestor(X, Y) :-  alive(X), ancestor(X, Y).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Family tree display predicate
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+family_tree() :-
+    structure(A, B, C, D, E, F), write('Family Tree:'), put(10),
+    write('--------------'), put(10),
+    printrow(A, B),
+    write('    \\   /'), put(10),
+    spacer(), printrow(C),
+    write('    /   \\'), put(10),
+    printrow(E, D),
+    write('   |'), put(10),
+    printrow(F), put(10).
+
+printrow(X) :- write(' '), write(X), put(10).
+
+printrow(X, Y) :- write(' '), write(X), printrow(Y).
+
+spacer() :- write('    ').
+
+% Finds family tree structure from the youngest to the oldest.
+structure(A, B, C, D, E, F) :- youngest(F), 
+                                sibling(D, E), parent(E, F),
+                                parent(C, E),
+                                parent(A, C), married(A, B). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample queries (for documentation)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -84,3 +113,4 @@ living_ancestor(X, Y) :-  alive(X), ancestor(X, Y).
 % ?- grandparent(john, alice).
 % ?- ancestor(john, diana).
 % ?- living_ancestor(bob, alice).
+% ?- family_tree.

@@ -1,5 +1,13 @@
 # Project 2 – Logic Programming: Family Relationship Reasoning
 
+## Authors
+
+- **Liu** — Prolog rules, ASP translation
+- **Rachel** — ASP Optimization, Choice rules, Prolog display
+- **Yogitha** — Team coordination and support
+
+---
+
 ## Overview
 
 This project explores two logic programming paradigms:
@@ -18,7 +26,7 @@ The knowledge base encodes a small family tree and supports reasoning about:
 - `sibling/2`
 - `grandparent/2`
 - `ancestor/2` (recursive)
-- `living_ancestor/2` (NAF in ASP)
+- `living_ancestor/2` (ASP only, using negation-as-failure)
 ---
 
 ## Files
@@ -26,16 +34,25 @@ The knowledge base encodes a small family tree and supports reasoning about:
 - `family.pl` – Prolog source for Part 1.
 - `family.lp` – ASP (clingo) source for Part 2.
 - `project2_doc.pdf` – Short documentation / report.
+- `README.md` — This file
 
 ---
 
-## How to run (Prolog)
+## How to Run (Prolog – SWI-Prolog)
 
-Using SWI‑Prolog:
+Open a terminal inside the `p2-logicProg` folder:
 
 ```bash
 swipl
 ?- [family].
+```
+
+Example queries:
+
+```prolog
+swipl
+?- [family].
+?- family_tree.
 ?- father(john, bob).
 ?- mother(mary, bob).
 ?- sibling(alice, charlie).
@@ -52,8 +69,11 @@ You should see `true` for each of the above queries.
 
 ```bash
 clingo family.lp
+```
 
-#Only show optimal model with newlines
+Show only the optimal model with clean newlines:
+
+```bash
 clingo --opt-mode=optN --quiet=1 --out-ifs=\n family.lp
 ```
 
@@ -88,7 +108,17 @@ Using the *same* family‑relationship rules in both languages highlights these 
 ## AI/LLM Usage Documentation
 
 ### Tools Used
-- **Perplexity (Comet)**: Design of ASP choice rules and constraints
+- **ChatGPT**: 
+  - Drafting and refining Prolog rules
+  - Translating rules into ASP syntax
+  - Designing ASP choice rules and constraints
+  - Writing example queries
+  - Structuring this README
+  - Explaining differences between Prolog and ASP
+  - Clarifying how to run both programs
+- **Perplexity**: 
+  - Design of ASP choice rules
+  - Design of ASP constraints
 
 ## Specific AI assistance
 
@@ -104,5 +134,6 @@ Using the *same* family‑relationship rules in both languages highlights these 
 
 ## Practical Usage
 - **Familial organization**: Both programs provide answers to queries about familial relationships between people.
+- **Family tree visualization**: family.pl can display the family tree visually for easier understanding.
 - **Family tree assignment**: family.lp can assign unknown individuals to vacant spaces in a family tree, providing multiple possible worlds of how a person could be related to the existing tree.
   
