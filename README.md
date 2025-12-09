@@ -134,6 +134,6 @@ Using the *same* family‑relationship rules in both languages highlights these 
 
 ## Practical Usage
 - **Familial organization**: Both programs provide answers to queries about familial relationships between people.
-- **Family tree visualization**: family.pl can display the family tree visually for easier understanding.
-- **Family tree assignment**: family.lp can assign unknown individuals to vacant spaces in a family tree, providing multiple possible worlds of how a person could be related to the existing tree.
+- **Family tree visualization**: family.pl displays the family tree visually for easier understanding.
+- **Family tree assignment**: family.lp assigns unknown individuals to vacant spaces in a family tree, providing multiple possible worlds of how a person could be related to the existing tree.
   
