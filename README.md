@@ -89,22 +89,28 @@ The output can list answer sets containing facts such as:
 
 ---
 
-## Comparison: Prolog vs ASP
+## Problem Description
 
-- **Execution model**
-  - Prolog: answers queries via **backward chaining** (depth‑first search). It only explores the parts of the knowledge base that are relevant to the current query.
-  - ASP: computes entire **stable models** (answer sets), then we inspect which atoms are true in each model.
+- **Familial Relationships**: These programs provide answers to questions about relation between individuals in a family tree.
+  - Given initial facts about people, these programs can derive additional information about relations (ex. a person who has a parental lineage to another person over one or more generations is the descendant of that ancestor).
+- **Problem Selection**: Using the same family‑relationship rules in both languages highlights the differences between Prolog and ASP in a simple, intuitive domain.
 
-- **Control vs. declarative style**
-  - Prolog has an implicit execution order (top‑down, left‑to‑right). Performance can depend on rule ordering.
-  - ASP is more declarative; rules describe constraints, and the solver handles the search.
+## Solution Approach
 
-- **Non‑monotonic reasoning**
-  - ASP naturally supports non‑monotonic features (e.g., defaults, choice rules, minimization).
-  - Prolog can emulate some of this but typically requires extra mechanisms (e.g., cut, negation as failure) and careful control.
+- **Facts and queries**: Multiple queries are implemented that provide answers about common relationships between people. Most two-person atoms are formatted as `relation(X, Y)` where the answer provided will be whether or not `X` has `relation` to `Y`.
+- **Sample Queries**: Provided in comments at the end of both files, and above in this file.
 
-Using the *same* family‑relationship rules in both languages highlights these differences in a simple, intuitive domain.
-
+## Comparison: Prolog vs ASP approaches
+  - **Prolog**: answers queries via **backward chaining** (depth‑first search). It only explores the parts of the knowledge base that are relevant to the current query.
+    - For the living_ancestor predicate, the fact that most people were alive was required to be added to the knowledge base.
+    - The recursive ancestor predicate works the same in Prolog as it does in ASP.
+    - Prolog is unable to account for multiple possible worlds of places to assign unknown individuals.
+  - **ASP**: computes entire **stable models** (answer sets), then we inspect which atoms are true in each model.
+    - For the living_ancestor predicate, only deceased individuals had to be identified.
+    - Extra unknown individuals were able to be assigned as unrelated or added to the tree by choice rules, which is not possible in Prolog.
+    - Constraint rules ensure that these individuals get assigned to plausible locations (ex. not assigning a third parent to a child that already has two parents).
+    - The maximize statement defines more relationships as optimal, creating a denser family tree.
+    
 ## AI/LLM Usage Documentation
 
 ### Tools Used
